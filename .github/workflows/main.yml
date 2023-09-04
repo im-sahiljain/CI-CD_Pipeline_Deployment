@@ -13,6 +13,15 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
+      - name: Install HTML5Validator
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.x'  # Replace with your desired Python version
+      - name: Install html5validator
+        run: |
+          pip install html5validator
+
+
       - name: Build Web Application
         run: |
           # No need to build static website
