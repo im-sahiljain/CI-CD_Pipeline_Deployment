@@ -21,6 +21,19 @@ jobs:
         run: |
           pip install html5validator
 
+      - name: Setup Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '14'  # Replace with your desired Node.js version
+      
+      - name: Install stylelint
+        run: |
+          npm install -g stylelint
+      
+      - name: Lint CSS
+        run: |
+          # Lint CSS files using stylelint
+          npx stylelint styles.css
 
       - name: Build Web Application
         run: |
