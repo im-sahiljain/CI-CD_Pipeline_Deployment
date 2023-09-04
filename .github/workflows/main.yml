@@ -65,8 +65,7 @@ jobs:
   
           mkdir temp-gh-pages
           mv app/* temp-gh-pages
-  
-          
+            
           git init
   
          
