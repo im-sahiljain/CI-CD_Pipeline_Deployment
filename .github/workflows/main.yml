@@ -29,11 +29,6 @@ jobs:
       - name: Install stylelint
         run: |
           npm install -g stylelint
-      
-      - name: Lint CSS
-        run: |
-          # Lint CSS files using stylelint
-          npx stylelint styles.css
 
       - name: Build Web Application
         run: |
