@@ -15,26 +15,26 @@ jobs:
 
       - name: Install Dependencies
         run: |
-          # Install any dependencies your web application needs here
+          npm install
 
-      - name: Build
+      - name: Build Web Application
         run: |
-          # Add your build command here (if applicable)
-          # e.g., npm run build
+          npm run build
 
       - name: Validate HTML/CSS
         run: |
-          # Add commands to validate HTML/CSS here (if applicable)
+          html5validator index.html
+          npx stylelint styles.css
 
       - name: Create Build Artifact
         run: |
-          # Add commands to create a build artifact here (if applicable)
+          tar -czf app.tar.gz build/*
 
       - name: Upload Artifact
         uses: actions/upload-artifact@v2
         with:
           name: web-app
-          path: path/to/your/build/artifact
+          path: app.tar.gz
 
   deploy:
     needs: build
@@ -52,10 +52,7 @@ jobs:
 
       - name: Deploy to GitHub Pages
         run: |
-          # Add your deployment commands here (if applicable)
-          # e.g., move files to a web server or cloud storage
-
-          # Optionally, you can set up a redirect to your main page
-          echo '<meta http-equiv="refresh" content="0;url=public_html/index.html">' > $HOME/index.html
+          bundle exec jekyll build -d public
+          mv public/* ./
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: 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
