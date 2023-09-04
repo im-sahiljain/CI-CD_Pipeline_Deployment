@@ -15,7 +15,7 @@ jobs:
 
       - name: Build Web Application
         run: |
-          npm run build
+          # No need to build static website
 
       - name: Validate HTML/CSS
         run: |
@@ -24,13 +24,13 @@ jobs:
 
       - name: Create Build Artifact
         run: |
-          tar -czf app.tar.gz build/*
+          zip -r app.zip index.html script.js styles.css
 
       - name: Upload Artifact
         uses: actions/upload-artifact@v2
         with:
           name: web-app
-          path: app.tar.gz
+          path: app.zip
 
   deploy:
     needs: build
@@ -48,7 +48,6 @@ jobs:
 
       - name: Deploy to GitHub Pages
         run: |
-          bundle exec jekyll build -d public
-          mv public/* ./
+          cp -r app/* /im-sahiljain/CI-CD_Pipeline_Deployment-pages
         env:
-          GITHUB_TOKEN: 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
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
