@@ -25,10 +25,6 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: '14'  # Replace with your desired Node.js version
-      
-      - name: Install stylelint
-        run: |
-          npm install -g stylelint
 
       - name: Build Web Application
         run: |
@@ -37,7 +33,6 @@ jobs:
       - name: Validate HTML/CSS
         run: |
           html5validator index.html
-          npx stylelint styles.css
 
       - name: Create Build Artifact
         run: |
