@@ -1,0 +1,61 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Install Dependencies
+        run: |
+          # Install any dependencies your web application needs here
+
+      - name: Build
+        run: |
+          # Add your build command here (if applicable)
+          # e.g., npm run build
+
+      - name: Validate HTML/CSS
+        run: |
+          # Add commands to validate HTML/CSS here (if applicable)
+
+      - name: Create Build Artifact
+        run: |
+          # Add commands to create a build artifact here (if applicable)
+
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: web-app
+          path: path/to/your/build/artifact
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Download Artifact
+        uses: actions/download-artifact@v2
+        with:
+          name: web-app
+          path: app
+
+      - name: Deploy to GitHub Pages
+        run: |
+          # Add your deployment commands here (if applicable)
+          # e.g., move files to a web server or cloud storage
+
+          # Optionally, you can set up a redirect to your main page
+          echo '<meta http-equiv="refresh" content="0;url=public_html/index.html">' > $HOME/index.html
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
