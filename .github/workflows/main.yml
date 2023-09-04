@@ -16,7 +16,7 @@ jobs:
       - name: Install HTML5Validator
         uses: actions/setup-python@v2
         with:
-          python-version: '3.x'  # Replace with your desired Python version
+          python-version: '3.x'  
       - name: Install html5validator
         run: |
           pip install html5validator
@@ -24,7 +24,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v2
         with:
-          node-version: '14'  # Replace with your desired Node.js version
+          node-version: '14'  
 
       - name: Build Web Application
         run: |
@@ -60,6 +60,11 @@ jobs:
 
       - name: Deploy to GitHub Pages
         run: |
-          cp -r app/* /im-sahiljain/CI-CD_Pipeline_Deployment-pages
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          mkdir -p ./gh-pages
+          cp -r app/* ./gh-pages/
+
+      - name: Push to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./gh-pages
